@@ -1,35 +1,36 @@
+version: '3.8'
+
 services:
   wordpress:
-    build: .
-    container_name: wordpress-container
+    build:
+      context: .
     ports:
-      - "8080:80"
+      - "8080:80" # Map port 8080 on the host to port 80 in the container
     environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_NAME: wordpress
-    depends_on:
-      - db
-      - redis
+      WORDPRESS_REDIS_HOST: redis
     volumes:
-      - wordpress-data:/var/www/html
+      - wordpress_data:/var/www/html
 
-  db:
+  mysql:
     image: mysql:5.7
-    container_name: mysql-container
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
     volumes:
-      - db-data:/var/lib/mysql
+      - db_data:/var/lib/mysql
 
   redis:
     image: redis:alpine
-    container_name: redis-container
+    ports:
+      - "6379:6379" # Redis default port
+    volumes:
+      - redis_data:/data
 
 volumes:
-  wordpress-data:
-  db-data:
+  wordpress_data:
+  db_data:
+  redis_data:
