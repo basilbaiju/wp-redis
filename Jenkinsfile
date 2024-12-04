@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out the repository...'
-                git branch: 'main', url: 'https://github.com/basilbaiju/wp-redis.git'
+                git branch: master , url:'https://github.com/basilbaiju/wp-redis.git'
+                
             }
         }
 
