@@ -27,11 +27,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo 'Cleaning up...'
-            sh 'docker-compose down || true'
-            sh 'docker system prune -f || true'
-        }
-    }
+
 }
