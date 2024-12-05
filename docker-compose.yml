@@ -5,7 +5,7 @@ services:
     build:
       context: .
     ports:
-      - "8085:80" # Map port 8080 on the host to port 80 in the container
+      - "8085:80" 
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: root
@@ -26,7 +26,7 @@ services:
   redis:
     image: redis:alpine
     ports:
-      - "6379:6379" # Redis default port
+      - "6379:6379"
     volumes:
       - redis_data:/data
 
