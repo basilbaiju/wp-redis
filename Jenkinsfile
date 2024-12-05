@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Define any environment variables if required
-        DOCKER_IMAGE_NAME = 'wordpress-redis'
-    }
-
     stages {
         stage('Checkout Code') {
             steps {
@@ -15,14 +10,14 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
+                sh 'docker build -t wordpress-redis .'
             }
         }
 
         stage('Deploy Using Docker Compose') {
             steps {
-                sh 'docker-compose down || true' // Stop any existing containers
-                sh 'docker-compose up -d'       // Start new containers
+                sh 'docker-compose down || true' 
+                sh 'docker-compose up -d'     
             }
         }
     }
